@@ -1,0 +1,67 @@
+syntax = "proto3";
+package main;
+
+message SelectDatabaseRequest {
+    string publickey = 1;
+    string database = 2;
+    string collection = 3;
+    string condition = 4;
+}
+
+message AggregateDatabaseRequest {
+    string publickey = 1;
+    string database = 2;
+    string collection = 3;
+    string match = 4;
+    string lookup = 5;
+    string unset = 6;
+    int32 limit = 7;
+    int32 skip = 8;
+    string group = 9;
+    string sort = 10;
+    string project = 11;
+}
+
+message InsertDatabaseRequest {
+    string publickey = 1;
+    string database = 2;
+    string collection = 3;
+    string data = 4;
+}
+
+message UpdateDatabaseRequest {
+    string publickey = 1;
+    string database = 2;
+    string collection = 3;
+    string condition = 4;
+    string data = 5;
+}
+
+message DeleteDatabaseRequest {
+    string publickey = 1;
+    string database = 2;
+    string collection = 3;
+    string condition = 4;
+}
+
+message DatabaseResponse {
+    int32 code = 1;
+    string message = 2;
+    string data = 3;
+}
+
+message CreateDatabaseRequest {
+    string publickey = 1;
+    string company = 2;
+    string database = 3;
+}
+
+service MongoService {
+    rpc SelectOne (SelectDatabaseRequest) returns (DatabaseResponse);
+    rpc SelectMany (SelectDatabaseRequest) returns (DatabaseResponse);
+    rpc Aggregate (AggregateDatabaseRequest) returns (DatabaseResponse);
+    rpc InsertOne (InsertDatabaseRequest) returns (DatabaseResponse);
+    rpc UpdateOne (UpdateDatabaseRequest) returns (DatabaseResponse);
+    rpc UpdateMany (UpdateDatabaseRequest) returns (DatabaseResponse);
+    rpc Delete (DeleteDatabaseRequest) returns (DatabaseResponse);
+}
